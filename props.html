@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <!-- Props
+
+    _React elements 
+        _Sử dụng props giống như với attribute của thẻ HTML
+        _ 2 props class, for -> className, htmlFor
+        _ Phải tuân theo quy tắc có sẵn 
+    _React components
+        _ Sử dụng props giống như với đối số cho Component
+        _Tự do đặt tên cho props
+            _Đặt tên theo camelCase
+            _Có thể bao gồm dấu gạch nganh 
+    _Chú ý:
+        _Prop "key" là prop đặc biệt
+        _Prop cơ bản là đối số của Component
+            => props có thể là bất cứ kiểu dữ liệu gì
+        _Sử dụng destructuring  -->
+
+    <div id="app"></div>
+    <script type="text/babel">
+
+
+        function PostItem({
+            image,
+            title,
+            tilte,
+            desciption,
+            publishedAt,
+            callback =()   => {},
+        }
+        ) {
+
+            callback();
+            return (
+                <div className="posts-list">
+                    <div clasName="posts-item">
+                        <img src={image} alt={title} />
+                        <h2 clasName="post-title">{tilte}</h2>
+                        <p clasName="post-desc">{desciption}</p>
+                        <p clasName="post-published">{publishedAt}</p>
+
+                    </div>
+
+                </div>
+            )
+        }
+
+        function App() {
+            return (
+
+                <div className="wrapper">
+                    <PostItem
+                        title="Post 1"
+                        image="https://img.pikbest.com/origin/09/19/03/61zpIkbEsTGjk.jpg!bw700"
+                        desciption="Bạn có kiến thwucs ngôn thữ C#! Bạn muốn thực hiện code"
+                        publishedAt="Một ngày trước . 5 phút đọc"
+                        callback={() => {
+                           
+                        }}
+
+                    />
+                    <PostItem
+                        title="Post 2"
+                        image="https://img.pikbest.com/origin/09/19/03/61zpIkbEsTGjk.jpg!bw700"
+                        desciption="Bạn có kiến thwucs ngôn thữ C#! Bạn muốn thực hiện code"
+                        publishedAt="Một ngày trước . 5 phút đọc"
+                    />
+                    <PostItem
+                        title="Post 3"
+                        image="https://img.pikbest.com/origin/09/19/03/61zpIkbEsTGjk.jpg!bw700"
+                        desciption="Bạn có kiến thwucs ngôn thữ C#! Bạn muốn thực hiện code"
+                        publishedAt="Một ngày trước . 5 phút đọc"
+                    />
+
+                </div>
+
+            )
+        }
+
+
+
+        ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+</body>
+
+</html>
