@@ -18,6 +18,8 @@
     <div id="root"></div>
     <script type="text/babel">
         const reactCounter = "ReactJS"
+
+
         const couse = [
             {
                 name: "HTML, CSS",
@@ -29,9 +31,23 @@
                 name:"ReactJS",
             }
         ]
-        const ul = <ul>
-            {couse.map((course, index) => <li key={index}>{course.name}</li>)}
-        </ul>
+
+    const jsx = (
+        // React.Fragment là cái tạo ra để ôm các elements mà không tạo ra thẻ nào trong log
+        <React.Fragment>
+            <ul>
+                {couse.map((course, index) => <li key={index}>{course.name}</li>)}
+            </ul>
+    
+            <h1>Xin chào {reactCounter}</h1>
+            <h2>Xin chào</h2>
+        </React.Fragment>
+    )
+    console.log(jsx);
+
+
+    
+       
         ReactDOM.render(ul, document.getElementById("root"));
     </script>
 </body>
