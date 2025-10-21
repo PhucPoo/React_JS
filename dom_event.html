@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <!-- Làm việc với JSX
+
+    Phần 1
+    _Xử lý DOM EVENTS
+    _Component do chúng ta định nghĩa phải viết
+    chữ cái đầu tiên in hoa
+    _Chọn component trong 1 objects
+    _Booleans Null & Undefined không được render
+    _Kết hợp toán tử logic để render điều kiện
+
+    Phần 2
+    _Props trong JSX
+    _<YourComponent 
+    propName1="stringValue"
+     propName2={value} 
+     />
+     Prop default to "true"
+     Spread Rest props
+     Children props
+        _<YourComponent>
+            <h1>Title</h1>
+            <p>Description</p>
+        </YourComponent>
+        _<YourComponent>
+            {data.map(item => (
+                <p key={item.id}>{item.title}</p>
+            ))}
+        </YourComponent> -->
+    <div id="root"></div>
+    <script type="text/babel">
+
+        function Button({title, href, onClick}) {
+            let Component = "button"
+            const props = {}
+
+
+            if (onClick) {
+                    props.onClick = onClick 
+               
+            }
+            if (href) {
+                    // Component = "a",
+                    props.href =  href 
+                
+            }
+            return (
+                <Component {...props}>
+                    {title}</Component>
+            )
+
+        }
+
+        function App() {
+
+
+            return (
+                <div id="wrapper">
+                    <Button
+                        title="Click me"
+                        href="https://google.com"
+                        // onClick={() => console.log("kkk")
+                        // }
+                    />
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+</body>
+
+</html>

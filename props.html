@@ -32,22 +32,23 @@
     <script type="text/babel">
 
 
-        function PostItem({
-            image,
-            title,
-            tilte,
-            desciption,
-            publishedAt,
-            callback =()   => {},
-        }
-        ) {
+        function PostItem(props) {
+            const {
+                image,
+                title,
+                desciption,
+                publishedAt,
+                callback = () => { },
+                onClick = () => { }
+            } = props
+
 
             callback();
             return (
                 <div className="posts-list">
                     <div clasName="posts-item">
                         <img src={image} alt={title} />
-                        <h2 clasName="post-title">{tilte}</h2>
+                        <h2 clasName="post-title" onClick={() => { onClick(props) }}>{title}</h2>
                         <p clasName="post-desc">{desciption}</p>
                         <p clasName="post-published">{publishedAt}</p>
 
@@ -55,6 +56,11 @@
 
                 </div>
             )
+        }
+        const handeleClick = (x) => {
+            console.log(x);
+
+            alert("Chúc mừng bạn đã vào được khóa học " + x.title);
         }
 
         function App() {
@@ -67,8 +73,9 @@
                         desciption="Bạn có kiến thwucs ngôn thữ C#! Bạn muốn thực hiện code"
                         publishedAt="Một ngày trước . 5 phút đọc"
                         callback={() => {
-                           
+
                         }}
+                        onClick={handeleClick}
 
                     />
                     <PostItem
