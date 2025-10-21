@@ -42,28 +42,29 @@
     <div id="root"></div>
     <script type="text/babel">
 
-        function Input({ label,...inputProps }) {
-            return(
-                <div>
-                    <label for="">{label}</label>
-                    <input {...inputProps} />
-                    </div>
+        function List({ data, children }) {
+            console.log(children);
+
+            return (
+                <ul>
+                    {data.map((...props) =>  children(...props) 
+
+                    )}
+                </ul>
             )
         }
 
+        const cars = ["BMW", "Mercedes", "Audi"]
         function App() {
 
             const title = "Ấn vào đây"
 
             return (
                 <div id="wrapper">
-                     <Input 
-                        type="checkbox"
-                        placeholder="Nhập tên của bạn"
-                        label="Họ và tên"
-                        onFocus= {() => {console.log("Focus")}}
-                     />
-                    </div>
+                    <List data={cars} >
+                        {(item,key) => <li key={key}>{item}</li>}
+                    </List>
+                </div>
             )
         }
         ReactDOM.render(<App />, document.getElementById("root"));
