@@ -1,23 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+
+const orders= [1000, 2000, 3000];
 
 function App() {
+  
+  const [count, setCount] = useState(()=>{
+    const total = orders.reduce((total, cur) => total + cur, 0);
+    return total;
+  });
+
+  const handleClick = () => {
+    setCount(count + 1);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1>{count}</h1>
+        <button onClick={handleClick}>Bấm vào</button>
     </div>
   );
 }
