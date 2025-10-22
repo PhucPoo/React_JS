@@ -6,19 +6,22 @@ const orders= [1000, 2000, 3000];
 
 function App() {
   
-  const [count, setCount] = useState(()=>{
-    const total = orders.reduce((total, cur) => total + cur, 0);
-    return total;
+  const [info, setInfo] = useState({
+    name: 'Hoang',
+    age: 18,
+    address: 'HN'
   });
-
   const handleClick = () => {
-    setCount(count + 1);
-  }
+    setInfo({
+      ...info,
+      bio: "Đẹp zai vcl"
+    });
+  };
 
   return (
     <div className="App">
-        <h1>{count}</h1>
-        <button onClick={handleClick}>Bấm vào</button>
+        <h1>{JSON.stringify(info)}</h1>
+        <button onClick={handleClick}>bấm đi</button>
     </div>
   );
 }
