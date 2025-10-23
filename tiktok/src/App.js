@@ -2,26 +2,31 @@ import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
-const orders= [1000, 2000, 3000];
+
+const gift =[
+  "CPU I9",
+  "RAM 32GB",
+  "SSD 1TB"
+]
+
+  
 
 function App() {
-  
-  const [info, setInfo] = useState({
-    name: 'Hoang',
-    age: 18,
-    address: 'HN'
-  });
-  const handleClick = () => {
-    setInfo({
-      ...info,
-      bio: "Đẹp zai vcl"
-    });
-  };
 
+ const [getgift, setGetGift] = useState(()=>"Nhận lấy phần thưởng");
+  const handleClick = () => {
+    const randomgift = Math.floor(Math.random() * gift.length);
+    console.log(randomgift);
+    
+    setGetGift(gift[randomgift]);
+  }
+   
+  
   return (
-    <div className="App">
-        <h1>{JSON.stringify(info)}</h1>
-        <button onClick={handleClick}>bấm đi</button>
+    
+    <div >
+      <h1>{getgift}</h1>
+      <button onClick={handleClick}>Lấy thưởng</button>
     </div>
   );
 }
