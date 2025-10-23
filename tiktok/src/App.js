@@ -26,7 +26,7 @@ const courses = [
 
 
 function App() {
-  const [checked, setChecked] = useState(1);
+  const [checked, setChecked] = useState([]);
 
   //  const [getgift, setGetGift] = useState(()=>"Nhận lấy phần thưởng");
   //   const handleClick = () => {
@@ -35,8 +35,19 @@ function App() {
 
   //     setGetGift(gift[randomgift]);
   //   }
+  const handleCheckbox = (id) => {
+    setChecked(prev => {
+      const isChecked = checked.includes(id);
+      if (isChecked) {
+        return checked.filter(item => item !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  }
 
   const register = () => {
+    // Call API
     console.log(checked);
     
   }
@@ -49,9 +60,9 @@ function App() {
       {courses.map(course => (
         <div key={course.id}>
           <input
-            type="radio"
-            checked={checked === course.id}
-            onChange={() => setChecked(course.id)}
+            type="checkbox"
+            checked={checked.includes(course.id)}
+            onChange={() => handleCheckbox(course.id)}
           />
           {course.name}
         </div>
