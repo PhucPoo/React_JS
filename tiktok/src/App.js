@@ -8,10 +8,25 @@ import { useState } from 'react';
 //   "RAM 32GB",
 //   "SSD 1TB"
 // ]
+const courses = [
+  {
+    id: 1,
+    name: "HTML, CSS"
+  },
+  {
+    id: 2,
+    name: "JavaScript"
+  },
+  {
+    id: 3,
+    name: "ReactJS"
+  }
+]
 
 
 
 function App() {
+  const [checked, setChecked] = useState(1);
 
   //  const [getgift, setGetGift] = useState(()=>"Nhận lấy phần thưởng");
   //   const handleClick = () => {
@@ -20,13 +35,10 @@ function App() {
 
   //     setGetGift(gift[randomgift]);
   //   }
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
 
-  console.log(name);
   const register = () => {
-      // Call API
-      console.log("Register", {name, email});
+    console.log(checked);
+    
   }
 
 
@@ -34,14 +46,16 @@ function App() {
 
 
     <div >
-      <input
-        value={name}
-        onChange={e => setName(e.target.value)}
-      />
-      <input
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
+      {courses.map(course => (
+        <div key={course.id}>
+          <input
+            type="radio"
+            checked={checked === course.id}
+            onChange={() => setChecked(course.id)}
+          />
+          {course.name}
+        </div>
+      ))}
       <button
         onClick={register}
       >
