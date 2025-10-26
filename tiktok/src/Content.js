@@ -33,22 +33,20 @@ import { use, useEffect, useState } from 'react';
 const tabs = ['posts', 'comments', 'albums'];
 
 function Content() {
-   const [width,setWidth]=useState(window.innerWidth)
+   const [countdown ,setCountdown] = useState(180)
 
-   useEffect(()=>{
-        const handleResize=() => {
-            setWidth(window.innerWidth)
+    useEffect(()=>{
+        const timerId = setInterval(()=>{
+            setCountdown(prevState => prevState -1)
+        },1000)
+        return ()=>{
+            clearInterval(timerId)
         }
-    window.addEventListener('resize',handleResize)
-    
-    return()=>{
-        window.removeEventListener('resize',handleResize)
-    }
-   })
+    },[])
 
     return (
         <div>
-            <h1>{width}</h1>
+           <h1>{countdown}</h1>
 
         </div>
     );
