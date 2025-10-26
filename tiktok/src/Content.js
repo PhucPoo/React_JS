@@ -29,13 +29,14 @@ import { use, useEffect, useState } from 'react';
 // _ Callback được gọi mỗi khi deps thay đổi
 
 // 1.callback luôn được gọi sau khi component mounted
-
+// 2. Cleanup function luôn được gọi trước khi unmounted
 const tabs = ['posts', 'comments', 'albums'];
 
 function Content() {
     const [title, setTitle] = useState('');
     const [posts, setPosts] = useState([]);
     const [type, setType] = useState("posts");
+    const [showGoToTop, setShowGoToTop] = useState(false);
 
 
 
@@ -43,14 +44,31 @@ function Content() {
 
 
         console.log('Title changed');
-    
+
         fetch(`https://jsonplaceholder.typicode.com/${type}`)
             .then(res => res.json())
             .then(posts => {
                 setPosts(posts);
             });
-       
+
     }, [type]);
+
+    useEffect(() => {
+
+        const handleScroll = () => {
+            if (window.scrollY >= 200) {
+                setShowGoToTop(true)
+            } else {
+                setShowGoToTop(false)
+            };
+
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+
+        }
+    }, [])
 
     return (
         <div>
@@ -71,8 +89,19 @@ function Content() {
 
             <ul>
                 {posts.map(post => (
-                    <li key={post.id}>{post.title|| post.name}</li>
+                    <li key={post.id}>{post.title || post.name}</li>
                 ))}
+                {showGoToTop && (
+                    <button
+                        style={{
+                            position: "fixed",
+                            right: 20,
+                            bottom: 20,
+                        }}
+                    >
+                        Go to top
+                    </button>
+                )}
             </ul>
 
         </div>
