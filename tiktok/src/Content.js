@@ -30,23 +30,43 @@ import { use, useEffect, useState } from 'react';
 
 // 1.callback luôn được gọi sau khi component mounted
 // 2. Cleanup function luôn được gọi trước khi unmounted
-const tabs = ['posts', 'comments', 'albums'];
+// 3. Cleanup function luôn được gọi trước khi callback được gọi ()
 
 function Content() {
-   const [countdown ,setCountdown] = useState(180)
+
+    const [img, setImg] = useState()
 
     useEffect(()=>{
-        const timerId = setInterval(()=>{
-            setCountdown(prevState => prevState -1)
-        },1000)
-        return ()=>{
-            clearInterval(timerId)
+        return()=>{
+            img && URL.revokeObjectURL(img.avt)
         }
-    },[])
+    },[img])
+
+    const handlePreviewAvatar = (e) => {
+        const file = e.target.files[0]
+
+        file.avt = URL.createObjectURL(file)
+
+        setImg(file)
+
+        return()=>{
+
+        }
+
+    }
+
 
     return (
         <div>
-           <h1>{countdown}</h1>
+            <input
+                type="file"
+                onChange={handlePreviewAvatar}
+            />
+            {img && (<img
+                src={img.avt }
+                alt=""
+            />)}
+
 
         </div>
     );
