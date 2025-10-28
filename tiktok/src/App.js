@@ -6,31 +6,24 @@ import Content from './Content';
 
 
 function App() {
-  const [show, setShow] = useState(false);
- 
-  
+  const [count, setCount] = useState(0)
 
-  //  const [getgift, setGetGift] = useState(()=>"Nhận lấy phần thưởng");
-  //   const handleClick = () => {
-  //     const randomgift = Math.floor(Math.random() * gift.length);
-  //     console.log(randomgift);
-
-  //     setGetGift(gift[randomgift]);
-  //   }
-  const handleSubmit = () => {
-    setShow(!show);
+  const increase = () => {
+    setCount(count + 1)
   }
-  
+
   return (
     <div >
 
+      <Content />
+      <h1>{count}</h1>
       <button
-        onClick={handleSubmit}
+        onClick={increase}
       >
-        Toggle
+        Click me!
       </button>
 
-      {show && <Content />}
+
 
     </div>
   );

@@ -1,43 +1,18 @@
-import {  useEffect, useRef, useState } from 'react';
+import { useState, memo } from 'react';
 
+// 1. memo() -> Higher Order Component (HOC)
+// 2. useCalback()
 
-// Lưu các giá trị qua một tham chiếu bên ngoài
-// function component
+// Hooks
+// HOC
+// Render props
+
+// thằng memo nó sử dụng toán tử === để so sánh thằng con với thằng cha nếu không có gì thay đổi thì thằng con sẽ ko bị re-render
+// sử dụng memo chỉ khi mà thằng con không sử dụng props của thằng cha mà vẫn bị re-render
 
 function Content() {
-    const [count, setCount] = useState(60)
-
-   const timerId = useRef()
-   const prevCount = useRef()
-
-   useEffect(()=>{
-    prevCount.current = count
-   },[count])
-
-    const handleStart =() => {
-        timerId.current = setInterval(()=> {
-            setCount(prevCount => prevCount-1)
-        },1000)
-        console.log('Start ->', timerId.current);
-        
-    }
-
-    const handleStop = ()=>{
-        clearInterval(timerId.current)
-        console.log('stop->',timerId.current);
-        
-    }
- 
-    console.log(count,prevCount.current);
-    
-    return (
-        <div>
-          <h1>{count}</h1>
-          <button onClick ={handleStart}>Start</button>
-          <button onClick ={handleStop}>Stop</button>
-
-        </div>
-    );
+    return(
+        <h1>Anh em PhucPoo</h1>
+    )
 }
-
-export default Content;
+export default memo(Content);
