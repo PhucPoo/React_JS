@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Content from './Content';
 
 
@@ -8,20 +8,16 @@ import Content from './Content';
 function App() {
   const [count, setCount] = useState(0)
 
-  const increase = () => {
-    setCount(count + 1)
-  }
+  const handleIncrease = useCallback(() => {
+    setCount(preCount => preCount + 1)
+  },[])
 
   return (
     <div >
 
-      <Content />
+      <Content onIncrease={handleIncrease} />
       <h1>{count}</h1>
-      <button
-        onClick={increase}
-      >
-        Click me!
-      </button>
+      
 
 
 
