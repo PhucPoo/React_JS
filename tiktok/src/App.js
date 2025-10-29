@@ -1,34 +1,38 @@
-import Content from "./Content"
-import TodoApp from "./Todo"
-import { useContext } from "react"
-import { ThemeContext } from "./ThemeContext"
+
 import './App.css'
+import { useStore, actions } from './store';
 
 
-
-//Context
-//comA=> ComB=>ComC
-
-//Theme:dark/ light
-
-// 1. Create context 
-// 2. Provider
-// 3. consumer
 
 function App() {
-  const context = useContext(ThemeContext)
+  const [state, dispatch] = useStore()
+  console.log(state);
+
+  const handleAdd = () => {
+    dispatch(actions.addTodo(state.todoInput))
+  }
+
   return (
-      <div>
+    <div>
+      <input
+        value={state.todoInput}
+        placeholder='Enter todo'
+        onChange={e => {
+          dispatch(actions.setTodoInput(e.target.value))
+        }}
+      />
+      <button onClick={handleAdd}>
+        Add
+      </button>
+      <ul>
+        {state.todos.map((todo,index) => (
+          <li key={index}>{todo}</li>
+        ))}
+      </ul>
 
-        <button onClick={context.toggleTheme}>Toggle</button>
-        <Content  />
+    </div>
 
-      </div>
-   
   )
-  // <TodoApp/> 
-
-
 }
 
 export default App
