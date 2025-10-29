@@ -1,70 +1,55 @@
 import './App.css';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import {  useReducer } from 'react';
 
+// useState
+// 1.init state: 0
+// 2. Actions: up (state + 1) /Down (state - 1)
+
+// useReducer
+// 1.Init state: 0
+// 2. Actions : Up (state + 1) /Down (state -1 )
+// 3. Reducer 
+// 4. Dispatch
+
+const initState =0
+
+const Up_Action ='up'
+
+const Down_Action ='down'
+
+
+//Reducer
+const reducer =(state,action) =>{
+  switch(action){
+    case Up_Action:
+      return state + 1
+    case Down_Action:
+      return state -1
+    default:
+      throw new Error('Invalid action')
+  }
+}
 
 
 function App() {
-  const [name, setName] = useState('')
-  const [price, setPrice] = useState('')
-  const [products, setProducts] = useState([])
-
-  const nameRef = useRef()
-
-  const handleSubmit = () => {
-    setProducts([...products, {
-      name,
-      price: +price
-    }])
-    setName("")
-    setPrice('')
-
-    nameRef.current.focus()
-  }
-
-  const total = useMemo(() => {
-    const result = products.reduce((result, prod) => {
-
-      console.log('Tính tonas lịa');
-
-      return result + prod.price
-    }, 0)
-    return result
-  },[products])
-
-  console.log(products);
+  const [count, dispatch] = useReducer(reducer,initState)
+  
 
   return (
     <div >
 
-      <input
-        ref={nameRef}
-        value={name}
-        placeholder='Enter name'
-        onChange={e => setName(e.target.value)}
-      />
-      <br />
-      <input
-        value={price}
-        placeholder='Enter price'
-        onChange={e => setPrice(e.target.value)}
-
-      />
-      <br />
+     <h1>{count}</h1>
       <button
-        onClick={handleSubmit}
+        onClick={()=>dispatch(Down_Action)}
       >
-        Add
+        Dowwn
       </button>
-      <br />
-      Total:{total}
-      <ul>
-        {products.map((product, index) => (
-          <li key={index}>
-            {product.name} - {product.price}
-          </li>
-        ))}
-      </ul>
-
+      <button
+        onClick={() =>dispatch(Up_Action)}
+      >
+        Up
+      </button>
+      
 
     </div>
   );
