@@ -1,18 +1,14 @@
 import { useState, memo } from 'react';
+import Paragraph from './SetColor/Paragraph.js';
 
 // 1. memo() -> Higher Order Component (HOC)
 // 2. useCalback()
 // _Reference types
 // _React memo()
-function Content({onIncrease}) {
+function Content() {
     return (
         <>
-            <h1>Anh em PhucPoo</h1>
-            <button
-                onClick={onIncrease}
-            >
-                Click me!
-            </button>
+          <Paragraph  />
         </>
 
     )
