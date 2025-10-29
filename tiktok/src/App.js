@@ -1,5 +1,5 @@
 import './App.css';
-import {  useReducer } from 'react';
+import {  useReducer, useRef } from 'react';
 
 // useState
 // 1.init state: 0
@@ -11,44 +11,103 @@ import {  useReducer } from 'react';
 // 3. Reducer 
 // 4. Dispatch
 
-const initState =0
+const initState = {
+  job: '',
+  jobs: []
+}
 
-const Up_Action ='up'
+const Set_Job = 'set_job'
+const Add_Job = 'add_job'
+const Delete_Job = 'delete_job'
 
-const Down_Action ='down'
-
-
-//Reducer
-const reducer =(state,action) =>{
-  switch(action){
-    case Up_Action:
-      return state + 1
-    case Down_Action:
-      return state -1
-    default:
-      throw new Error('Invalid action')
+const setJob =payload => {
+  return {
+    type: Set_Job,
+    payload
+  }
+}
+const addJob =payload => {
+  return {
+    type: Add_Job,
+    payload
+  }
+}
+const deleteJob =payload => {
+  return {
+    type: Delete_Job,
+    payload
   }
 }
 
+let newState
+
+const reducer = (state, action) =>{
+console.log(action);
+
+  switch(action.type){
+    case Set_Job:
+      newState = {
+        ...state,
+        job: action.payload
+      }
+      break
+    case Add_Job:
+      newState ={
+        ...state,
+        jobs: [...state.jobs, action.payload]
+      }
+        break
+    case Delete_Job:
+      const newJobs =[...state.jobs]
+
+      newJobs.splice(action.payload, 1)
+
+      newState ={
+        ...state,
+        jobs:newJobs
+      }
+        break
+  default:
+    throw new Error("invalid action")
+  }
+  return newState
+}
 
 function App() {
-  const [count, dispatch] = useReducer(reducer,initState)
+  const [state, dispatch] = useReducer(reducer,initState)
+  
+  const { job, jobs} =state
+
+  const inputRef = useRef()
+
+  const handleSubmit = () =>{
+    dispatch(addJob(job))
+    dispatch(setJob(''))
+
+    inputRef.current.focus()
+  }
   
 
   return (
     <div >
 
-     <h1>{count}</h1>
-      <button
-        onClick={()=>dispatch(Down_Action)}
-      >
-        Dowwn
-      </button>
-      <button
-        onClick={() =>dispatch(Up_Action)}
-      >
-        Up
-      </button>
+     <h1>{}</h1>
+      <input
+        ref={inputRef}
+        value={job}
+        placeholder='Enter todo ...'
+        onChange={e => {
+          dispatch(setJob(e.target.value))
+        }}
+      />
+      <button onClick={handleSubmit}>Add</button>
+    <ul>
+      {jobs.map((job,index)=>(
+        <li key={index}>{job} 
+          <span onClick={()=>{dispatch(deleteJob(index))}}>&times;</span>
+        </li>
+      ))}
+    </ul>
       
 
     </div>
